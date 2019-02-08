@@ -4,15 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.dao.PizzaMemDao;
+import fr.pizzeria.model.Pizza;
+import fr.pizzeria.service.AjouterPizzaService;
+import fr.pizzeria.service.ListerPizzasService;
+import fr.pizzeria.service.MenuService;
+import fr.pizzeria.service.MenuServiceFactory;
+import fr.pizzeria.service.ModifierPizzaService;
+import fr.pizzeria.service.SupprimerPizzaService;
+
 public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner choiceMenu = new Scanner(System.in);
+		Scanner choixMenu = new Scanner(System.in);
+		MenuServiceFactory service = new MenuServiceFactory() ;
 
 
 		int choice = 0;
-		int i;
+		IPizzaDao pizzaDao =new PizzaMemDao();
+
+
 		Pizza peperoni = new Pizza(0, "PEP", "Pépéroni", 12.50);
 		Pizza margherita = new Pizza(1, "MAR", "Margherita", 14.00);
 		Pizza laReine = new Pizza(2, "REIN", "La Reine", 11.50);
@@ -22,7 +35,17 @@ public class PizzeriaAdminConsoleApp {
 		Pizza orientale = new Pizza(6, "ORI", "L'orientale", 13.50);
 		Pizza indienne = new Pizza(7, "IND", "L'indienne", 14.00);
 
-		Pizza listPizza[] ={peperoni,margherita,laReine,fromage,cannibale,savoyarde,orientale,indienne} ;
+
+		pizzaDao.saveNewPizza(peperoni);
+		pizzaDao.saveNewPizza(margherita);
+		pizzaDao.saveNewPizza(laReine);
+		pizzaDao.saveNewPizza(fromage);
+		pizzaDao.saveNewPizza(cannibale);
+		pizzaDao.saveNewPizza(savoyarde);
+		pizzaDao.saveNewPizza(orientale);
+		pizzaDao.saveNewPizza(indienne);
+
+
 
 		while (true) {
 			System.out.println("***** Pizzeria Administration******");
@@ -32,137 +55,44 @@ public class PizzeriaAdminConsoleApp {
 			System.out.println("4.Supprimer une pizza");
 			System.out.println("99.Sortir.");
 
-			choice = choiceMenu.nextInt();
+			choice = choixMenu.nextInt();
 
 			if (choice == 1){
-				for (i=0;i<listPizza.length;i++){
-					listPizza[i].affichage();
-				}
 
+				service.menuFactory(choice);
 				choice= 0;
 			}
 
 
 			else if (choice == 2){
-				System.out.println("Ajout d'une nouvelle pizza");
-				System.out.println("Veuillez saisir le code:");
-				String codeCustomer = choiceMenu.next();
+				service.menuFactory(choice);
 
-				System.out.println("Veuillez saisile le nom(sans espace)");
-				String libelleCustomer = choiceMenu.next();
-
-				System.out.println("Veuillez saisir le prix");
-				double prixCustomer = choiceMenu.nextDouble();
-
-				Pizza pizzaCustomer= new Pizza(codeCustomer, libelleCustomer, prixCustomer);
-
-				Pizza arrayTemp[] = new Pizza[(listPizza.length+1)];
-
-				for (i=0;i<listPizza.length;i++){
-					arrayTemp[i]=(listPizza[i]);
-				}
-				arrayTemp[listPizza.length]= pizzaCustomer ;
-
-
-				listPizza=arrayTemp;
-
-				for (i=0;i<listPizza.length;i++){
-					listPizza[i].affichage();
-				}
 				choice= 0;
 			}
 
 			else if (choice == 3){
-				boolean found = false ;
-				int index = -1;
-				int id = -1 ;
-				System.out.println("Mise à jour d'une pizza");
+				service.menuFactory(choice);
 
-				for (i=0;i<listPizza.length;i++){
-					listPizza[i].affichage();
-				}
-
-				System.out.println("Veuillez choisir le code de la pizza a modifier");
-				String codeModif= choiceMenu.next();
-				for (i=0;i<listPizza.length;i++){
-					if(listPizza[i].getCode().equals(codeModif)){
-
-						found = true;
-						index= i ;
-						id = listPizza[i].getId();
-						break;
-					}
-				}
-				if(found=true){
-					System.out.println("Veuillez saisir le nouveau code");
-
-					codeModif = choiceMenu.next();
-
-					System.out.println("Veuillez saisir le nouveau nom : ");
-					String nomModif = choiceMenu.next();
-
-					System.out.println("Veuillez saisir le nouveau prix : ");
-					double prixModif = choiceMenu.nextDouble();
-
-					listPizza[index] = new Pizza(id, codeModif, nomModif, prixModif);
-
-					for (i=0;i<listPizza.length;i++){
-						listPizza[i].affichage();
-					}
-
-				} else {
-					System.out.println("Désolé cette pizza n'est pas trouvable");
-					break;
-				}
 				choice =0;
-
-
 			}
-
 
 
 			else if (choice == 4){
-				System.out.println("Suppression d'une pizza");
-				System.out.println("Veuillez saisir le code de la pizza à supprimer");
-				String code = choiceMenu.next() ;
-
-				//tableau temporaire plus petit que le précédent
-				Pizza[] arrayTemp = new Pizza[listPizza.length-1];
-
-				//Va servir de compteur temporaire
-				int iTemp = 0;
-
-				//l'ancien tableau pour recopier les valeurs
-				for ( i= 0 ; i < listPizza.length ; i++){                    
-
-					//seulement pour les valeurs différentes de la pizza à supprimer
-					if(!listPizza[i].getCode().equals(code)){
-
-						arrayTemp[iTemp] = listPizza[i];
-						iTemp ++;
-					}
-
-					//le tableau initial par le tableau temporaire
-					listPizza = arrayTemp;
-
-					//afficher le nouveau tableau
-					for (i=0;i<listPizza.length;i++){
-						listPizza[i].affichage();
-					}
-
-					//retour au menu
-					choice= 0;         
-				}
+				service.menuFactory(choice);
+				choice= 0;         
 			}
+
 
 			else if(choice == 99) {
 				System.out.println("Aurevoir :(");
 				break;
-
 			}
 
 		}
 
 	}
-
 }
+
+
+
+
