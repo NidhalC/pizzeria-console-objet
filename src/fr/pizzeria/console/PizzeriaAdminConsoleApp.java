@@ -19,12 +19,8 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner choixMenu = new Scanner(System.in);
-		MenuServiceFactory service = new MenuServiceFactory() ;
-
-
 		int choice = 0;
 		IPizzaDao pizzaDao =new PizzaMemDao();
-
 
 		Pizza peperoni = new Pizza(0, "PEP", "Pépéroni", 12.50);
 		Pizza margherita = new Pizza(1, "MAR", "Margherita", 14.00);
@@ -35,7 +31,6 @@ public class PizzeriaAdminConsoleApp {
 		Pizza orientale = new Pizza(6, "ORI", "L'orientale", 13.50);
 		Pizza indienne = new Pizza(7, "IND", "L'indienne", 14.00);
 
-
 		pizzaDao.saveNewPizza(peperoni);
 		pizzaDao.saveNewPizza(margherita);
 		pizzaDao.saveNewPizza(laReine);
@@ -44,8 +39,6 @@ public class PizzeriaAdminConsoleApp {
 		pizzaDao.saveNewPizza(savoyarde);
 		pizzaDao.saveNewPizza(orientale);
 		pizzaDao.saveNewPizza(indienne);
-
-
 
 		while (true) {
 			System.out.println("***** Pizzeria Administration******");
@@ -57,39 +50,16 @@ public class PizzeriaAdminConsoleApp {
 
 			choice = choixMenu.nextInt();
 
-			if (choice == 1){
-
-				service.menuFactory(choice);
+			if (choice > 0 && choice < 5){
+				MenuServiceFactory.menuFactory(choice).executeUC(pizzaDao, choixMenu);
 				choice= 0;
 			}
-
-
-			else if (choice == 2){
-				service.menuFactory(choice);
-
-				choice= 0;
-			}
-
-			else if (choice == 3){
-				service.menuFactory(choice);
-
-				choice =0;
-			}
-
-
-			else if (choice == 4){
-				service.menuFactory(choice);
-				choice= 0;         
-			}
-
 
 			else if(choice == 99) {
 				System.out.println("Aurevoir :(");
 				break;
 			}
-
 		}
-
 	}
 }
 

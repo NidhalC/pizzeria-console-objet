@@ -16,23 +16,23 @@ public class ModifierPizzaService extends MenuService {
 		System.out.println("Veuillez choisir le code de la pizza a modifier");
 		// TODO Auto-generated method stub
 
-		String codeModif= choixMenu.next();
-		pizzaDao.findPizzaByCode(codeModif);
+		String codePizzaAModifier= choixMenu.next();
+		pizzaDao.findPizzaByCode(codePizzaAModifier);
 
-		if(pizzaDao.pizzaExists(codeModif)){
+		if(pizzaDao.pizzaExists(codePizzaAModifier)){
 			System.out.println("Veuillez saisir le nouveau code");
 
-			codeModif = choixMenu.next();
+			String  nouveauCodePizza = choixMenu.next();
 			
 			System.out.println("Veuillez saisir le nouveau nom : ");
 
-			String nomModif = choixMenu.next();
+			String nouveauNomPizza = choixMenu.next();
 			System.out.println("Veuillez saisir le nouveau prix : ");
 			
-			double prixModif = choixMenu.nextDouble();
-			Pizza pizzaModif  = new Pizza(codeModif, nomModif, prixModif);
+			double nouveauprix = choixMenu.nextDouble();
+			Pizza pizzaModif  = new Pizza(nouveauCodePizza, nouveauNomPizza, nouveauprix);
 
-			pizzaDao.updatePizza(codeModif, pizzaModif);
+			pizzaDao.updatePizza(codePizzaAModifier, pizzaModif);
 
 		}
 
