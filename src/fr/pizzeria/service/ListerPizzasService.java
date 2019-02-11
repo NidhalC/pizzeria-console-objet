@@ -16,9 +16,8 @@ public class ListerPizzasService extends MenuService {
 		List<Pizza> mespizzas = pizzaDao.findAllpizzas();
 		Iterator iterator = mespizzas.iterator();
 
-		while (iterator.hasNext()){
-			Pizza mesPizzas = (Pizza) iterator.next();
-			mesPizzas.affichage();
+		for (Pizza maPizzas : mespizzas){
+			maPizzas.affichage();
 		}
 	}
 }
