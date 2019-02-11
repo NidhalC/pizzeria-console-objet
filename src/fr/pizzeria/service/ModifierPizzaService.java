@@ -34,6 +34,7 @@ public class ModifierPizzaService extends MenuService {
 			System.out.println("Veuillez saisir le nouveau prix : ");
 
 			double nouveauprix = choixMenu.nextDouble();
+			
 			System.out.println("Veuillez saisir la nouvelle catéorie parmis Viande, Poisson, Sans_Viande");
 			String categorieModificationCustomer = choixMenu.next().toUpperCase();
 			

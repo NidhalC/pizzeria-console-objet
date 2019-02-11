@@ -24,12 +24,12 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) throws SavePizzaException{
 
-		this.listPizza.add(pizza);
-
-
+		
 		if(pizzaExists(pizza.getCode()) == true){
 			throw new SavePizzaException("cette pizza existe deja");
 		}
+		this.listPizza.add(pizza);
+
 
 	}
 

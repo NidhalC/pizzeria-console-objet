@@ -16,11 +16,16 @@ import fr.pizzeria.service.MenuService;
 import fr.pizzeria.service.MenuServiceFactory;
 import fr.pizzeria.service.ModifierPizzaService;
 import fr.pizzeria.service.SupprimerPizzaService;
+/**
+ * 
+ * @author Chouaref Nidhal
+ * point d'entrée de l'application 
+ *
+ */
 
 public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner choixMenu = new Scanner(System.in);
 		int choice = 0;
 		IPizzaDao pizzaDao =new PizzaMemDao();
@@ -37,8 +42,7 @@ public class PizzeriaAdminConsoleApp {
 		Pizza indienne = new Pizza(7, "IND", "L'indienne", 14.00,typePizza.VIANDE);
 
 		try {
-			//pizzaDao.saveNewPizza(peperoni);
-			//pizzaDao.saveNewPizza(peperoni);
+			pizzaDao.saveNewPizza(peperoni);
 			pizzaDao.saveNewPizza(margherita);
 			pizzaDao.saveNewPizza(laReine);
 			pizzaDao.saveNewPizza(fromage);
